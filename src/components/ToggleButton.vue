@@ -10,7 +10,6 @@
 
 <script>
 export default {
-  name: 'ToggleSwitch',
   props: {
     disabled: {
       type: Boolean,
