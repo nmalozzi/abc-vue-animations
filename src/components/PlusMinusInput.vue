@@ -1,10 +1,12 @@
 <template>
   <div class="plus-minus-input">
+    <h2>{{ label }}</h2>
+
     <div class="plus-minus-button minus" v-on:click="mpminus()">
       -
     </div>
     <div id="field">
-      <input type="number" v-model="newValue" disabled/>
+      <input type="number" v-model="newValue" :step="step" disabled/>
     </div>
     <div class="plus-minus-button plus" v-on:click="mpplus()">
       +
@@ -15,6 +17,10 @@
 <script>
 export default {
   props: {
+    label: {
+      default: undefined,
+      type: String
+    },
     value: {
       default: 0,
       type: Number
@@ -26,7 +32,11 @@ export default {
     max: {
       default: undefined,
       type: Number
-    }
+    },
+    step: {
+      default: 1,
+      type: Number
+    },
   },
   data() {
     return {
@@ -36,13 +46,13 @@ export default {
   methods: {
     mpplus: function () {
       if (this.max === undefined || (this.newValue < this.max)) {
-        this.newValue = this.newValue + 1
+        this.newValue = this.newValue + this.step
         this.$emit('input', this.newValue)
       }
     },
     mpminus: function () {
       if ((this.newValue) > this.min) {
-        this.newValue = this.newValue - 1
+        this.newValue = this.newValue - this.step
         this.$emit('input', this.newValue)
       }
     }
@@ -61,8 +71,6 @@ export default {
 </script>
 <style scoped>
 .plus-minus-input {
-  border: 1px solid silver;
-  border-radius: 5px;
   background-color: #FFF;
   margin: 0 5px 0 5px;
   display: inline-block;

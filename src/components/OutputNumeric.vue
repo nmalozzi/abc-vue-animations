@@ -1,12 +1,13 @@
 <template>
   <div>
-    <p>8 {{ label }}</p>
+    <p>{{ output }} {{ label }}</p>
   </div>
 </template>
 
 <script>
 export default {
   props: {
+    output: Number,
     label: String
   }
 }
