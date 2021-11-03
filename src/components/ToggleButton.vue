@@ -1,25 +1,21 @@
 <template>
-  <label :for="id + '-button'" :class="{'active': isActive}" class="toggle-button">
-    <span v-if="isActive" class="toggle-label">{{ enableText }}</span>
-    <span v-if="! isActive" class="toggle-label">{{ disabledText }}</span>
-
-    <input type="checkbox" :disabled="disabled" :id="id + '-button'" v-model="checkedValue">
-    <span class="toggle-switch"></span>
-  </label>
+  <div>
+    <label :for="id + '-button'" :class="{'active': isActive}" class="toggle-button">
+      <h2 class="toggle-label">{{ labelDisableText }}</h2>
+      <input type="checkbox" :id="id + '-button'" v-model="checkedValue">
+      <span class="toggle-switch"></span>
+      <h2 class="toggle-label">{{ labelEnableText }}</h2>
+    </label>
+  </div>
 </template>
 
 <script>
 export default {
   props: {
-    disabled: {
-      type: Boolean,
-      default: false
-    },
     labelEnableText: {
       type: String,
       default: 'On'
     },
-
     labelDisableText: {
       type: String,
       default: 'Off'
@@ -47,12 +43,6 @@ export default {
     isActive() {
       return this.currentState;
     },
-    enableText() {
-      return this.labelEnableText;
-    },
-    disabledText() {
-      return this.labelDisableText;
-    },
     checkedValue: {
       get() {
         return this.currentState;
@@ -73,6 +63,10 @@ export default {
   cursor: pointer;
 }
 
+.toggle-button h2 {
+  display: inline-block;
+}
+
 .toggle-button input[type="checkbox"] {
   opacity: 0;
   position: absolute;
@@ -88,7 +82,7 @@ export default {
   background: #BFCBD9;
   box-shadow: inset 0 0 1px #BFCBD9;
   position: relative;
-  margin-left: 10px;
+  margin: 0 10px;
   transition: all .25s;
 }
 

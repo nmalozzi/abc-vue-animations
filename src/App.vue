@@ -1,5 +1,5 @@
 <template>
-  <WaterPressure header="abc-vue-animations App"/>
+  <WaterPressure />
 </template>
 
 <script>

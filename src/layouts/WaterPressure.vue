@@ -1,55 +1,79 @@
 <template>
   <div>
-    <h1>{{ header }}</h1>
-    <OutputNumeric :output="output" label="gallons per minute" />
-
-
-
-<!--    <ToggleButton id="switch" />-->
+    <OutputNumeric :output="output" label="gallons per minute"/>
+    <hr/>
+    <!--System Type-->
+    <ToggleButton
+        id="systemType"
+        labelDisableText="Multistage"
+        labelEnableText="Di Only"
+        v-on:change="setSystemMultiplier"
+    />
+    <hr/>
     <!--Length of Tubing-->
-    <PlusMinusInput v-model.number="tubeLength" label="Length of Tubing" :step=minTubeLength :min=minTubeLength :max=maxTubeLength />
-    <PlusMinusInput v-model.number="secondNumber" />
+    <PlusMinusInput
+        v-model.number="tubeLength"
+        header="Length of Tubing"
+        :step=minTubeLength
+        :min=minTubeLength
+        :max=maxTubeLength
+    />
+    <hr/>
+    <!--Flush Type-->
+    <ToggleButton
+        id="flushType"
+        labelDisableText="Regular RO Flush"
+        labelEnableText="No RO Flush"
+        v-on:change="setFlushMultiplier"
+    />
+    <hr/>
 
   </div>
 </template>
 
 <script>
-// import ToggleButton from '@/components/ToggleButton.vue'
+import ToggleButton from '@/components/ToggleButton.vue'
 import PlusMinusInput from "@/components/PlusMinusInput";
 import OutputNumeric from "@/components/OutputNumeric";
 
 export default {
+  components: {
+    OutputNumeric,
+    PlusMinusInput,
+    ToggleButton,
+  },
   data() {
     return {
-      secondNumber: 2,
       tubeLength: 25,
       tubeLengthFlowRates: {
         25: 1,
         50: .58,
         75: .54,
         100: .5
-      }
+      },
+      systemMultiplier: 1,
+      flushMultiplier: 1,
+    }
+  },
+  methods: {
+    setSystemMultiplier(value) {
+      this.systemMultiplier = value ? 3 : 1;
+    },
+    setFlushMultiplier(value) {
+      this.flushMultiplier = value ? .5 : 1;
     }
   },
   computed: {
-    minTubeLength: function(){
+    minTubeLength: function () {
       return parseInt(Object.keys(this.tubeLengthFlowRates)[0]);
     },
-    maxTubeLength: function(){
+    maxTubeLength: function () {
       return parseInt(Object.keys(this.tubeLengthFlowRates)[Object.keys(this.tubeLengthFlowRates).length - 1]);
     },
-    output: function(){
-      return this.tubeLengthFlowRates[this.tubeLength] * this.secondNumber;
+    output: function () {
+      return this.tubeLengthFlowRates[this.tubeLength] * this.systemMultiplier * this.flushMultiplier;
     }
   },
-  props: {
-    header: String
-  },
-  components: {
-    OutputNumeric,
-    PlusMinusInput,
-    // ToggleButton,
-  }
 }
 
 </script>

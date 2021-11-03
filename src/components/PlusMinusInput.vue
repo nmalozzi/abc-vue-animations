@@ -1,7 +1,6 @@
 <template>
   <div class="plus-minus-input">
-    <h2>{{ label }}</h2>
-
+    <h2>{{ header }}</h2>
     <div class="plus-minus-button minus" v-on:click="mpminus()">
       -
     </div>
@@ -17,7 +16,7 @@
 <script>
 export default {
   props: {
-    label: {
+    header: {
       default: undefined,
       type: String
     },
