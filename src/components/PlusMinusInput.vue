@@ -1,6 +1,6 @@
 <template>
   <div class="plus-minus-input">
-    <h2>{{ header }}</h2>
+    <h2 v-if="header">{{ header }}</h2>
     <div class="plus-minus-button minus" v-on:click="mpminus()">
       -
     </div>
