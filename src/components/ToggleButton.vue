@@ -82,7 +82,6 @@ export default {
   width: 100px;
   position: relative;
   margin: 0;
-  transition: all .25s;
   text-align: center;
 }
 

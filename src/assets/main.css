@@ -1,0 +1,20 @@
+@font-face {
+	font-family: "ds-digi";
+	font-weight: normal;
+	font-style: normal;
+	font-display: auto;
+	unicode-range: U+000-5FF;
+	src: local("DS-DIGI"), url("fonts/DS-DIGI.ttf") format('truetype');
+}
+
+@font-face {
+	font-family: "open-sans-bold";
+	font-weight: normal;
+	font-style: normal;
+	font-display: auto;
+	unicode-range: U+000-5FF;
+	src: local("OpenSans-Bold"), url("fonts/OpenSans-Bold.ttf") format('truetype');
+}
+
+* { box-sizing: border-box; }
+body { font-family: open-sans-bold, sans-serif; }
