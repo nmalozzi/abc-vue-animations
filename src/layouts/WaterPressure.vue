@@ -1,6 +1,7 @@
 <template>
   <div>
-    <OutputNumeric :output="output.toFixed(2)" label="gallons per minute"/>
+    <OutputNumeric :output="+(output.toFixed(2))" label="gallons per minute"/>
+
     <hr/>
     <!--System Type-->
     <ToggleButton
@@ -40,14 +41,28 @@
         :options="Object.keys(this.hoseDiameterFlowRates)"
         v-model="hoseDiameter"
         header="Hose Diameter"
+        group="hoseDiameter"
     />
+    <hr/>
     <!--Hose Diameter-->
     <RadioButtonGroup
         :options="Object.keys(this.tapPressureFlowRates)"
         v-model="tapPressure"
         header="Tap Pressure"
+        group="tapPressure"
     />
+    <hr/>
+    <!--Hose Diameter-->
+    <span> Number: {{temperature}} </span>
+
+    <SliderBar
+        v-model="temperature"
+        :min="0"
+        :max="99"
+        class="slider" />
   </div>
+
+
 </template>
 
 <script>
@@ -55,13 +70,15 @@ import ToggleButton from '@/components/ToggleButton.vue'
 import PlusMinusInput from "@/components/PlusMinusInput";
 import OutputNumeric from "@/components/OutputNumeric";
 import RadioButtonGroup from "@/components/RadioButtonGroup";
+import SliderBar from "@/components/SliderBar";
 
 export default {
   components: {
     OutputNumeric,
     PlusMinusInput,
     ToggleButton,
-    RadioButtonGroup
+    RadioButtonGroup,
+    SliderBar
   },
   data() {
     return {
@@ -72,9 +89,6 @@ export default {
         75: .54,
         100: .5
       },
-      systemMultiplier: 1,
-      flushMultiplier: 1,
-      pumpMultiplier: 1,
       hoseDiameter: "5/16",
       hoseDiameterFlowRates: {
         "5/16": .15,
@@ -88,6 +102,10 @@ export default {
         "60psi": .1,
         "70psi": 1.25,
       },
+      temperature: 77,
+      systemMultiplier: 1,
+      flushMultiplier: 1,
+      pumpMultiplier: 1,
     }
   },
   methods: {
@@ -108,16 +126,32 @@ export default {
     maxTubeLength: function () {
       return parseInt(Object.keys(this.tubeLengthFlowRates)[Object.keys(this.tubeLengthFlowRates).length - 1]);
     },
+    temperatureMultiplier: function () {
+      let multiplier = 1;
 
+      if (this.systemMultiplier === 1 ) {
+        if (this.temperature < 61) {
+          multiplier = .75;
+        }
+        if (this.temperature < 46) {
+          multiplier = .62;
+        }
+        if (this.temperature < 33) {
+          multiplier = 0;
+        }
+      }
+
+      return multiplier;
+    },
     output: function () {
       return this.tubeLengthFlowRates[this.tubeLength]
           * this.systemMultiplier
           * this.flushMultiplier
           * this.pumpMultiplier
           * this.hoseDiameterFlowRates[this.hoseDiameter]
-          * this.tapPressureFlowRates[this.tapPressure];
+          * this.tapPressureFlowRates[this.tapPressure]
+          * this.temperatureMultiplier;
     }
   },
 }
-
 </script>

@@ -7,7 +7,7 @@
             type="radio"
             :id="option"
             @change="$emit('input', $event.target.value)"
-            name="radio-input"
+            :name="group"
             :value="option"
             :checked="index === 0"
         />
@@ -28,6 +28,10 @@ export default {
     header: {
       default: undefined,
       type: String
+    },
+    group: {
+      required: true,
+      type: String,
     },
   },
 };
