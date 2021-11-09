@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import WaterPressure from './layouts/WaterPressure.vue'
+import WaterPressure from '@/layouts/WaterPressure.vue'
 
 export default {
   name: 'abc-vue-animations',
