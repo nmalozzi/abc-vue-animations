@@ -2,7 +2,6 @@
   <div>
     <OutputNumeric :output="+(output.toFixed(2))" label="gallons per minute"/>
 
-    <hr/>
     <!--System Type-->
     <ToggleButton
         id="systemType"
@@ -15,6 +14,7 @@
     <PlusMinusInput
         v-model.number="tubeLength"
         header="Length of Tubing"
+        inputLabel="ft"
         :step=minTubeLength
         :min=minTubeLength
         :max=maxTubeLength
@@ -53,7 +53,7 @@
     />
     <hr/>
     <!--Hose Diameter-->
-    <span> Number: {{temperature}} </span>
+    <span>Temperature: {{temperature}} </span>
 
     <SliderBar
         v-model="temperature"

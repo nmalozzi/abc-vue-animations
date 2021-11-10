@@ -42,9 +42,6 @@ export default {
   width: 35%;
   margin: 20px 0;
   padding: 15px 20px;
-  border: 1px solid black;
-  border-radius: 8px;
-
   display: flex;
   justify-content: space-between;
 }

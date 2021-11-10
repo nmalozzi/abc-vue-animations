@@ -5,7 +5,9 @@
       -
     </div>
     <div id="field">
+      <svg class="glare" x="0" y="0" viewBox="0 0 20.12 24.9"><path style="fill:#ffffff" d="M5.92 16.34c-.3 0-.6-.05-.9-.17a2.496 2.496 0 0 1-1.43-3.23c2.48-6.4 6.8-10.59 13.22-12.8 1.31-.45 2.73.24 3.18 1.55.45 1.31-.24 2.73-1.55 3.18-5.01 1.73-8.25 4.86-10.19 9.87a2.5 2.5 0 0 1-2.33 1.6z"/><circle style="fill:#ffffff" cx="2.96" cy="21.94" r="2.96"/></svg>
       <input type="number" v-model="newValue" :step="step" disabled/>
+      <span class="input-label">{{ inputLabel }}</span>
     </div>
     <div class="plus-minus-button plus" v-on:click="mpplus()">
       +
@@ -34,6 +36,10 @@ export default {
     },
     step: {
       default: 1,
+      type: Number
+    },
+    inputLabel: {
+      required: true,
       type: Number
     },
   },
@@ -70,7 +76,6 @@ export default {
 </script>
 <style scoped>
 .plus-minus-input {
-  background-color: #FFF;
   margin: 0 5px 0 5px;
   display: inline-block;
   user-select: none;
@@ -80,25 +85,51 @@ export default {
   display: inline-block;
 }
 
+.plus-minus-input #field {
+  position: relative;
+  width: 150px;
+  background: #E5E5E5;
+  border: 12px solid #01A0C6;
+  border-radius: 16px;
+}
+
+.plus-minus-input #field svg.glare {
+  position: absolute;
+  top: -8px;
+  left: -8px;
+  width: 12px;
+}
+
 .plus-minus-input #field input {
-  width: 50px;
-  text-align: center;
-  font-size: 15px;
-  padding: 3px;
+  width: 100%;
+  text-align: right;
+  font-family: ds-digi, sans-serif;
+  font-size: 32px;
+  color: #000;
+  margin: 8px 0;
+  padding: 0 24px 0 0;
+  background: transparent;
   border: none;
 }
 
+.plus-minus-input #field .input-label {
+  font-family: ds-digi, sans-serif;
+  font-size: 24px;
+  color: #000;
+  position: absolute;
+  top: 14px;
+  right: 6px;
+}
+
 .plus-minus-input .plus-minus-button {
-  padding: 3px 10px 3px 10px;
   cursor: pointer;
-  border-radius: 5px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #01A0C6;
+  margin: 0 16px;
+  font-size: 22px;
+  text-align: center;
 }
 
-.plus-minus-input .plus-minus-button:hover {
-  background-color: #DDD;
-}
-
-.plus-minus-input .plus-minus-button:active {
-  background-color: #c5c5c5;
-}
 </style>
