@@ -2,15 +2,20 @@
   <div>
     <div class="slider">
       <div class="slider-container">
-        <input
-            ref="input"
-            v-model="currentValue"
-            type="range"
-            :min="min"
-            :max="max"
-            class="slider"
-            @input="onInput"
-        >
+        <div class="ticks">
+          <span v-for="n in ticks" :key="n" class="tick"></span>
+        </div>
+        <div class="slide-wrap">
+          <input
+              ref="input"
+              v-model="currentValue"
+              type="range"
+              :min="min"
+              :max="max"
+              class="slider"
+              @input="onInput"
+          >
+        </div>
       </div>
     </div>
   </div>
@@ -30,7 +35,11 @@ export default {
     max: {
       type: Number,
       required: true
-    }
+    },
+    ticks: {
+      type: Number,
+      required: true
+    },
   },
   data(){
     return {
@@ -47,7 +56,7 @@ export default {
 
 <style scoped>
 .slider .slider-container {
-  width: 100%;
+  max-width: 520px;
 }
 
 .slider .slider-container .slider {
@@ -56,11 +65,11 @@ export default {
   width: 100%;
   height: 4px;
   border-radius: 2px;
-  background: #c2c2c2;
+  background: #000000;
   outline: none;
-  opacity: 0.7;
-  -webkit-transition: .2s;
-  transition: opacity .2s;
+  opacity: 1;
+  margin: 0;
+  padding: 0;
 }
 
 .slider .slider-container .slider:hover {
@@ -70,18 +79,48 @@ export default {
 .slider .slider-container .slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 18px;
-  height: 18px;
-  background: #D8A22E;
+  width: 22px;
+  height: 48px;
+  background: #000000;
   cursor: pointer;
-  border-radius: 50%;
+  border-radius: 1px;
+  border-style: inset;
+  border-color: #a1a1a1;
 }
 
 .slider .slider-container .slider::-moz-range-thumb {
-  width: 18px;
-  height: 18px;
-  background: #D8A22E;
+  width: 22px;
+  height: 48px;
+  background: #000000;
   cursor: pointer;
-  border-radius: 50%;
+  border-radius: 1px;
+  border-style: inset;
+  border-color: #a1a1a1;
 }
+
+.slide-wrap {
+  z-index: 2;
+  transform: translateY(-39px);
+}
+
+.ticks {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 11;
+}
+
+.tick {
+  display: flex;
+  justify-content: center;
+  width: 4px;
+  background: #000000;
+  height: 24px;
+}
+
+.tick:first-child,
+.tick:last-child {
+  height: 48px;
+}
+
 </style>

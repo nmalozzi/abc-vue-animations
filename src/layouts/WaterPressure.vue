@@ -59,6 +59,7 @@
         v-model="temperature"
         :min="0"
         :max="99"
+        :ticks="18"
         class="slider" />
   </div>
 
