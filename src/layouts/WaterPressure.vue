@@ -1,69 +1,70 @@
 <template>
-  <div>
+  <div class="water-pressure-animation">
     <OutputNumeric :output="+(output.toFixed(2))" label="gallons per minute"/>
-
-    <!--System Type-->
-    <ToggleButton
-        id="systemType"
-        labelDisableText="Multistage"
-        labelEnableText="Di Only"
-        v-on:change="setSystemMultiplier"
-    />
-    <hr/>
-    <!--Length of Tubing-->
-    <PlusMinusInput
-        v-model.number="tubeLength"
-        header="Length of Tubing"
-        inputLabel="ft"
-        :step=minTubeLength
-        :min=minTubeLength
-        :max=maxTubeLength
-    />
-    <hr/>
-    <!--Flush Type-->
-    <ToggleButton
-        id="flushType"
-        labelDisableText="Regular RO Flush"
-        labelEnableText="No RO Flush"
-        v-on:change="setFlushMultiplier"
-    />
-    <hr/>
-    <!--Pump-->
-    <ToggleButton
-        id="pump"
-        labelDisableText="Pump Off"
-        labelEnableText="Pump On"
-        v-on:change="setPumpMultiplier"
-    />
-    <hr/>
-    <!--Hose Diameter-->
-    <RadioButtonGroup
-        :options="Object.keys(this.hoseDiameterFlowRates)"
-        v-model="hoseDiameter"
-        header="Hose Diameter"
-        group="hoseDiameter"
-    />
-    <hr/>
-    <!--Hose Diameter-->
-    <RadioButtonGroup
-        :options="Object.keys(this.tapPressureFlowRates)"
-        v-model="tapPressure"
-        header="Tap Pressure"
-        group="tapPressure"
-    />
-    <hr/>
-    <!--Hose Diameter-->
-    <span>Temperature: {{temperature}} </span>
-
-    <SliderBar
-        v-model="temperature"
-        :min="0"
-        :max="99"
-        :ticks="18"
-        class="slider" />
+    <div class="water-pressure-controls">
+      <!--System Type-->
+      <ToggleButton
+          id="systemType"
+          labelDisableText="Multistage"
+          labelEnableText="Di Only"
+          v-on:change="setSystemMultiplier"
+      />
+      <hr/>
+      <!--Temperature-->
+      <div class="temperature-wrap">
+        <h2>Temperature: {{temperature}}F</h2>
+        <SliderBar
+            v-model="temperature"
+            :min="0"
+            :max="99"
+            :ticks="18"
+            class="slider" />
+        <p>Temperature only has an effect if Multi-Stage is the selected above. Temperature has no effect if DI Only is selected.</p>
+      </div>
+      <hr/>
+      <!--Tap Pressure-->
+      <RadioButtonGroup
+          :options="Object.keys(this.tapPressureFlowRates)"
+          v-model="tapPressure"
+          header="Tap Pressure"
+          group="tapPressure"
+      />
+      <hr/>
+      <!--Length of Tubing-->
+      <PlusMinusInput
+          v-model.number="tubeLength"
+          header="Length of Tubing"
+          inputLabel="ft"
+          :step=minTubeLength
+          :min=minTubeLength
+          :max=maxTubeLength
+      />
+      <hr/>
+      <!--Flush Type-->
+      <ToggleButton
+          id="flushType"
+          labelDisableText="Regular RO Flush"
+          labelEnableText="No RO Flush"
+          v-on:change="setFlushMultiplier"
+      />
+      <hr/>
+      <!--Pump-->
+      <ToggleButton
+          id="pump"
+          labelDisableText="Pump Off"
+          labelEnableText="Pump On"
+          v-on:change="setPumpMultiplier"
+      />
+      <hr/>
+      <!--Hose Diameter-->
+      <RadioButtonGroup
+          :options="Object.keys(this.hoseDiameterFlowRates)"
+          v-model="hoseDiameter"
+          header="Hose Diameter"
+          group="hoseDiameter"
+      />
+    </div>
   </div>
-
-
 </template>
 
 <script>
@@ -100,7 +101,7 @@ export default {
       tapPressure: "50psi",
       tapPressureFlowRates: {
         "50psi": .75,
-        "60psi": .1,
+        "60psi": 1,
         "70psi": 1.25,
       },
       temperature: 77,
@@ -156,3 +157,29 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+
+.water-pressure-animation {
+  border-radius: 16px;
+  background: #f5f5f5;
+  padding: 16px;
+  max-width: 800px;
+  border: 4px inset #efeeee;
+}
+
+.water-pressure-controls {
+  flex-grow: 1;
+  padding: 24px 0 16px 0;
+}
+
+hr {
+  border: 1px dotted #ccc;
+  margin: 24px 0 ;
+}
+
+@media only screen and (max-width: 540px) {
+  .temperature-wrap { text-align: center; }
+}
+
+</style>

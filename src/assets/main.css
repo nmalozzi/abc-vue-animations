@@ -17,4 +17,23 @@
 }
 
 * { box-sizing: border-box; }
-body { font-family: open-sans-bold, sans-serif; }
+body {
+	font-family: open-sans-bold, sans-serif;
+	letter-spacing: -1px;
+}
+h2 {
+	line-height: 1;
+	margin: 0;
+	padding: 0;
+	text-transform: uppercase;
+	font-size: 20px;
+}
+
+@media only screen and (max-width: 540px) {
+	h2 { font-size: 16px; }
+}
+
+p {
+	font-size: 13px;
+	margin-bottom: 0;
+}

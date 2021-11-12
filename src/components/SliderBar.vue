@@ -56,7 +56,9 @@ export default {
 
 <style scoped>
 .slider .slider-container {
-  max-width: 520px;
+  width: 100%;
+  height: 48px;
+  margin-top: 16px;
 }
 
 .slider .slider-container .slider {

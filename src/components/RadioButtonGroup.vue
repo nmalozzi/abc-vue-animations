@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="group-flex">
     <h2 v-if="header">{{ header }}</h2>
     <div class="input-group">
 
@@ -42,6 +42,13 @@ export default {
 </script>
 
 <style scoped>
+.group-flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+}
+
 .input-group {
   display: flex;
 }
@@ -61,7 +68,7 @@ label {
   height: 50px;
   border-radius: 50%;
   box-shadow: 0 12px 0 -4px #cccccc;
-  margin-top: 16px;
+  margin-top: 8px;
 }
 
 input[type="radio"] {
@@ -75,5 +82,10 @@ input[type="radio"]:checked+label .radio-button {
   width: 48px;
   height: 48px;
   transform: translateY(4px);
+}
+
+@media only screen and (max-width: 540px) {
+  .group-flex { flex-direction: column; }
+  .input-wrap { margin: 16px 8px 0 8px}
 }
 </style>

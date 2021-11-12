@@ -53,4 +53,16 @@ export default {
   font-weight: bold;
   text-transform: capitalize;
 }
+
+@media only screen and (max-width: 540px) {
+  .output-numeric {
+    flex-direction: column;
+    align-items: center;
+  }
+  .output-numeric .output-label {
+    padding-bottom: 0;
+    text-align: center;
+  }
+
+}
 </style>
