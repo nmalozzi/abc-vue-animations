@@ -1,68 +1,76 @@
 <template>
   <div class="water-pressure-animation">
     <OutputNumeric :output="+(output.toFixed(2))" label="gallons per minute"/>
-    <div class="water-pressure-controls">
-      <!--System Type-->
-      <ToggleButton
-          id="systemType"
-          labelDisableText="Multistage"
-          labelEnableText="Di Only"
-          v-on:change="setSystemMultiplier"
-      />
-      <hr/>
-      <!--Temperature-->
-      <div class="temperature-wrap">
-        <h2>Temperature: {{temperature}}F</h2>
-        <SliderBar
-            v-model="temperature"
-            :min="0"
-            :max="99"
-            :ticks="18"
-            class="slider" />
-        <p>Temperature only has an effect if Multi-Stage is the selected above. Temperature has no effect if DI Only is selected.</p>
+    <div class="water-pressure-flex">
+      <div class="water-pressure-meter">
+        <OutputMeter
+            :output="+(output.toFixed(2))"
+            :meter-max=12
+        />
       </div>
-      <hr/>
-      <!--Tap Pressure-->
-      <RadioButtonGroup
-          :options="Object.keys(this.tapPressureFlowRates)"
-          v-model="tapPressure"
-          header="Tap Pressure"
-          group="tapPressure"
-      />
-      <hr/>
-      <!--Length of Tubing-->
-      <PlusMinusInput
-          v-model.number="tubeLength"
-          header="Length of Tubing"
-          inputLabel="ft"
-          :step=minTubeLength
-          :min=minTubeLength
-          :max=maxTubeLength
-      />
-      <hr/>
-      <!--Flush Type-->
-      <ToggleButton
-          id="flushType"
-          labelDisableText="Regular RO Flush"
-          labelEnableText="No RO Flush"
-          v-on:change="setFlushMultiplier"
-      />
-      <hr/>
-      <!--Pump-->
-      <ToggleButton
-          id="pump"
-          labelDisableText="Pump Off"
-          labelEnableText="Pump On"
-          v-on:change="setPumpMultiplier"
-      />
-      <hr/>
-      <!--Hose Diameter-->
-      <RadioButtonGroup
-          :options="Object.keys(this.hoseDiameterFlowRates)"
-          v-model="hoseDiameter"
-          header="Hose Diameter"
-          group="hoseDiameter"
-      />
+      <div class="water-pressure-controls">
+        <!--System Type-->
+        <ToggleButton
+            id="systemType"
+            labelDisableText="Multistage"
+            labelEnableText="Di Only"
+            v-on:change="setSystemMultiplier"
+        />
+        <hr/>
+        <!--Temperature-->
+        <div class="temperature-wrap">
+          <h2>Temperature: {{temperature}}F</h2>
+          <SliderBar
+              v-model="temperature"
+              :min="0"
+              :max="99"
+              :ticks="18"
+              class="slider" />
+          <p>Temperature only has an effect if Multi-Stage is the selected above. Temperature has no effect if DI Only is selected.</p>
+        </div>
+        <hr/>
+        <!--Tap Pressure-->
+        <RadioButtonGroup
+            :options="Object.keys(this.tapPressureFlowRates)"
+            v-model="tapPressure"
+            header="Tap Pressure"
+            group="tapPressure"
+        />
+        <hr/>
+        <!--Length of Tubing-->
+        <PlusMinusInput
+            v-model.number="tubeLength"
+            header="Length of Tubing"
+            inputLabel="ft"
+            :step=minTubeLength
+            :min=minTubeLength
+            :max=maxTubeLength
+        />
+        <hr/>
+        <!--Flush Type-->
+        <ToggleButton
+            id="flushType"
+            labelDisableText="Regular RO Flush"
+            labelEnableText="No RO Flush"
+            v-on:change="setFlushMultiplier"
+        />
+        <hr/>
+        <!--Pump-->
+        <ToggleButton
+            id="pump"
+            labelDisableText="Pump Off"
+            labelEnableText="Pump On"
+            v-on:change="setPumpMultiplier"
+        />
+        <hr/>
+        <!--Hose Diameter-->
+        <RadioButtonGroup
+            :options="Object.keys(this.hoseDiameterFlowRates)"
+            v-model="hoseDiameter"
+            header="Hose Diameter"
+            group="hoseDiameter"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -71,12 +79,14 @@
 import ToggleButton from '@/components/ToggleButton.vue'
 import PlusMinusInput from "@/components/PlusMinusInput";
 import OutputNumeric from "@/components/OutputNumeric";
+import OutputMeter from "@/components/OutputMeter";
 import RadioButtonGroup from "@/components/RadioButtonGroup";
 import SliderBar from "@/components/SliderBar";
 
 export default {
   components: {
     OutputNumeric,
+    OutputMeter,
     PlusMinusInput,
     ToggleButton,
     RadioButtonGroup,
@@ -166,6 +176,16 @@ export default {
   padding: 16px;
   max-width: 800px;
   border: 4px inset #efeeee;
+}
+
+.water-pressure-flex {
+  display: flex;
+}
+
+.water-pressure-meter {
+  width: 100px;
+  margin: 16px 16px 0 0;
+  flex-shrink: 0;
 }
 
 .water-pressure-controls {
