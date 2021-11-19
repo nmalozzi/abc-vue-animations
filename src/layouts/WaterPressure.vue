@@ -5,7 +5,8 @@
       <div class="water-pressure-meter">
         <OutputMeter
             :output="+(output.toFixed(2))"
-            :meter-max=12
+            :meter-max=10
+            :meter-min=0
         />
       </div>
       <div class="water-pressure-controls">
@@ -35,6 +36,7 @@
             v-model="tapPressure"
             header="Tap Pressure"
             group="tapPressure"
+            :default-selected=1
         />
         <hr/>
         <!--Length of Tubing-->
@@ -47,12 +49,13 @@
             :max=maxTubeLength
         />
         <hr/>
-        <!--Flush Type-->
-        <ToggleButton
-            id="flushType"
-            labelDisableText="Regular RO Flush"
-            labelEnableText="No RO Flush"
-            v-on:change="setFlushMultiplier"
+        <!--Hose Diameter-->
+        <RadioButtonGroup
+            :options="Object.keys(this.hoseDiameterFlowRates)"
+            v-model="hoseDiameter"
+            header="Hose Diameter"
+            group="hoseDiameter"
+            :default-selected=2
         />
         <hr/>
         <!--Pump-->
@@ -63,12 +66,12 @@
             v-on:change="setPumpMultiplier"
         />
         <hr/>
-        <!--Hose Diameter-->
-        <RadioButtonGroup
-            :options="Object.keys(this.hoseDiameterFlowRates)"
-            v-model="hoseDiameter"
-            header="Hose Diameter"
-            group="hoseDiameter"
+        <!--Flush Type-->
+        <ToggleButton
+            id="flushType"
+            labelDisableText="Regular RO Flush"
+            labelEnableText="No RO Flush"
+            v-on:change="setFlushMultiplier"
         />
       </div>
     </div>
@@ -101,14 +104,14 @@ export default {
         75: .54,
         100: .5
       },
-      hoseDiameter: "5/16",
+      hoseDiameter: "3/8",
       hoseDiameterFlowRates: {
         "5/16": .15,
         "1/4": .25,
         "3/8": .9,
         "1/2": 1,
       },
-      tapPressure: "50psi",
+      tapPressure: "60psi",
       tapPressureFlowRates: {
         "50psi": .75,
         "60psi": 1,
@@ -198,7 +201,13 @@ hr {
   margin: 24px 0 ;
 }
 
-@media only screen and (max-width: 540px) {
+@media only screen and (max-width: 375px) {
+  .water-pressure-meter {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 600px) {
   .temperature-wrap { text-align: center; }
 }
 

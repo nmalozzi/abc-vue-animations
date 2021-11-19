@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="toggle-wrap">
     <label :for="id + '-button'" :class="{'active': isActive}" class="toggle-button">
       <h2 class="toggle-label off">{{ labelDisableText }}</h2>
       <div>
@@ -113,7 +113,7 @@ export default {
   visibility: visible;
 }
 
-@media only screen and (max-width: 540px) {
+@media only screen and (max-width: 600px) {
   .toggle-button { justify-content: space-evenly; }
   .toggle-button .toggle-switch{ margin: 0 -4px; }
 }

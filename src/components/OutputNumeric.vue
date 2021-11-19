@@ -54,7 +54,7 @@ export default {
   text-transform: capitalize;
 }
 
-@media only screen and (max-width: 540px) {
+@media only screen and (max-width: 600px) {
   .output-numeric {
     flex-direction: column;
     align-items: center;

@@ -110,7 +110,7 @@ export default {
   font-size: 32px;
   color: #000;
   margin: 8px 0;
-  padding: 0 24px 0 0;
+  padding: 0 32px 0 0;
   background: transparent;
   border: none;
 }
@@ -130,14 +130,17 @@ export default {
   height: 32px;
   border-radius: 50%;
   background: #01A0C6;
-  margin: 0 16px;
+  margin: 0 8px;
   font-size: 22px;
   text-align: center;
 }
 
-@media only screen and (max-width: 540px) {
-  .plus-minus-input { flex-direction: column; }
+@media only screen and (max-width: 600px) {
+  .plus-minus-input {
+    flex-direction: column;
+  }
   h2 { margin-bottom: 16px; }
+  .plus-minus-input #field { width: 105px; }
 }
 
 </style>

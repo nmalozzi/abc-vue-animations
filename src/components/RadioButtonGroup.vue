@@ -10,7 +10,7 @@
             @change="$emit('input', $event.target.value)"
             :name="group"
             :value="option"
-            :checked="index === 0"
+            :checked="index === defaultSelected"
         />
         <label :for="option">
           {{ option }}
@@ -37,6 +37,10 @@ export default {
       required: true,
       type: String,
     },
+    defaultSelected: {
+      type: Number,
+      default: 0
+    },
   },
 };
 </script>
@@ -51,12 +55,13 @@ export default {
 
 .input-group {
   display: flex;
+  flex-wrap: wrap;
 }
 
 .input-wrap {
   width: 56px;
   text-align: center;
-  margin: 0 16px;
+  margin: 0 8px;
 }
 
 label {
@@ -84,8 +89,8 @@ input[type="radio"]:checked+label .radio-button {
   transform: translateY(4px);
 }
 
-@media only screen and (max-width: 540px) {
+@media only screen and (max-width: 600px) {
   .group-flex { flex-direction: column; }
-  .input-wrap { margin: 16px 8px 0 8px}
+  .input-wrap { margin: 16px 4px 0 4px}
 }
 </style>
