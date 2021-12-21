@@ -1,6 +1,10 @@
 <template>
   <div class="water-pressure-animation">
-    <OutputNumeric :output="+(output.toFixed(2))" label="gallons per minute"/>
+    <OutputNumeric
+        :output="+(output.toFixed(2))"
+        label="gallons per minute"
+        label-fine-print="Min 3/4 gallons per minute for WaterFed® Cleaning"
+    />
     <div class="water-pressure-flex">
       <div class="water-pressure-meter">
         <OutputMeter
@@ -19,16 +23,14 @@
         />
         <hr/>
         <!--Temperature-->
-        <div class="temperature-wrap">
-          <h2>Temperature: {{temperature}}F</h2>
-          <SliderBar
-              v-model="temperature"
-              :min="0"
-              :max="99"
-              :ticks="18"
-              class="slider" />
-          <p>Temperature only has an effect if Multi-Stage is the selected above. Temperature has no effect if DI Only is selected.</p>
-        </div>
+        <SliderBar
+            :header="'Temperature: ' + temperature + 'F'"
+            smallText="Temperature only has an effect if Multi-Stage is selected above. Temperature has no effect if DI Only is selected."
+            v-model="temperature"
+            :min="0"
+            :max="99"
+            :ticks="18"
+        />
         <hr/>
         <!--Tap Pressure-->
         <RadioButtonGroup
@@ -39,10 +41,11 @@
             :default-selected=1
         />
         <hr/>
-        <!--Length of Tubing-->
+        <!--Length of Hose-->
         <PlusMinusInput
             v-model.number="tubeLength"
-            header="Length of Tubing"
+            header="Length of Hose"
+            smallText="Hose from system to pole."
             inputLabel="ft"
             :step=minTubeLength
             :min=minTubeLength
@@ -54,6 +57,7 @@
             :options="Object.keys(this.hoseDiameterFlowRates)"
             v-model="hoseDiameter"
             header="Hose Diameter"
+            smallText="Hose from system to pole."
             group="hoseDiameter"
             :default-selected=2
         />
@@ -128,7 +132,7 @@ export default {
       this.systemMultiplier = value ? 3 : 1;
     },
     setFlushMultiplier(value) {
-      this.flushMultiplier = value ? .5 : 1;
+      this.flushMultiplier = value && this.systemMultiplier === 1 ? .5 : 1;
     },
     setPumpMultiplier(value) {
       this.pumpMultiplier = value ? 2.5 : 1;
@@ -144,7 +148,7 @@ export default {
     temperatureMultiplier: function () {
       let multiplier = 1;
 
-      if (this.systemMultiplier === 1 ) {
+      if (this.systemMultiplier === 1) {
         if (this.temperature < 61) {
           multiplier = .75;
         }
@@ -179,6 +183,7 @@ export default {
   padding: 16px;
   max-width: 800px;
   border: 4px inset #efeeee;
+  margin: 0 auto 16px auto;
 }
 
 .water-pressure-flex {
@@ -198,17 +203,13 @@ export default {
 
 hr {
   border: 1px dotted #ccc;
-  margin: 24px 0 ;
+  margin: 24px 0;
 }
 
 @media only screen and (max-width: 375px) {
   .water-pressure-meter {
     display: none;
   }
-}
-
-@media only screen and (max-width: 600px) {
-  .temperature-wrap { text-align: center; }
 }
 
 </style>

@@ -4,7 +4,16 @@
 	font-style: normal;
 	font-display: auto;
 	unicode-range: U+000-5FF;
-	src: local("DS-DIGI"), url("fonts/DS-DIGI.ttf") format('truetype');
+	src: local("DS-DIGI"), url("https://store-3ff42.mybigcommerce.com/content/vue-animations/fonts/DS-DIGI.63f874d1.ttf") format('truetype');
+}
+
+@font-face {
+	font-family: "open-sans-regular";
+	font-weight: normal;
+	font-style: normal;
+	font-display: auto;
+	unicode-range: U+000-5FF;
+	src: local("OpenSans-Regular"), url("https://store-3ff42.mybigcommerce.com/content/vue-animations/fonts/OpenSans-Regular.b94ffe5a.woff2") format('woff2');
 }
 
 @font-face {
@@ -13,25 +22,29 @@
 	font-style: normal;
 	font-display: auto;
 	unicode-range: U+000-5FF;
-	src: local("OpenSans-Bold"), url("fonts/OpenSans-Bold.ttf") format('truetype');
+	src: local("OpenSans-Bold"), url("https://store-3ff42.mybigcommerce.com/content/vue-animations/fonts/OpenSans-Bold.4a72f904.woff2") format('woff2');
 }
 
 * { box-sizing: border-box; }
 body {
-	font-family: open-sans-bold, sans-serif;
+	font-family: open-sans-regular, sans-serif;
 	letter-spacing: -1px;
 }
 h2 {
+	font-family: open-sans-bold, sans-serif;
 	line-height: 1;
 	margin: 0;
 	padding: 0;
 	text-transform: uppercase;
 	font-size: 18px;
+	color: #333;
 }
 
 p {
+	font-family: open-sans-regular, sans-serif;
 	font-size: 13px;
 	margin-bottom: 0;
+	color: #333;
 }
 
 @media only screen and (max-width: 600px) {

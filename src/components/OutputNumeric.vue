@@ -4,8 +4,9 @@
     <div class="output-value">
       {{ output }}
     </div>
-    <div class="output-label">
+    <div v-if="label" class="output-label">
       {{ label }}
+      <p v-if="labelFinePrint">{{ labelFinePrint }}</p>
     </div>
   </div>
 </template>
@@ -14,7 +15,8 @@
 export default {
   props: {
     output: Number,
-    label: String
+    label: String,
+    labelFinePrint: String
   }
 }
 </script>
@@ -44,14 +46,19 @@ export default {
   font-family: ds-digi, sans-serif;
   width: 220px;
   text-align: right;
+  color: #333;
 }
 
 .output-numeric .output-label {
-  padding: 16px;
+  padding: 16px 16px 2px 16px;
   font-size: 40px;
   font-family: ds-digi, sans-serif;
-  font-weight: bold;
   text-transform: capitalize;
+  color: #333;
+}
+
+.output-numeric .output-label p {
+  margin: 0;
 }
 
 @media only screen and (max-width: 600px) {

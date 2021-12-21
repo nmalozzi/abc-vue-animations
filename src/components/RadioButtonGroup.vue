@@ -1,8 +1,10 @@
 <template>
   <div class="group-flex">
-    <h2 v-if="header">{{ header }}</h2>
+    <div class="group-head">
+      <h2 v-if="header">{{ header }}</h2>
+      <p v-if="smallText">{{ smallText }}</p>
+    </div>
     <div class="input-group">
-
       <div class="input-wrap" v-for="(option, index) in options" :key="option">
         <input
             type="radio"
@@ -33,6 +35,10 @@ export default {
       default: undefined,
       type: String
     },
+    smallText: {
+      default: undefined,
+      type: String
+    },
     group: {
       required: true,
       type: String,
@@ -56,6 +62,7 @@ export default {
 .input-group {
   display: flex;
   flex-wrap: wrap;
+  width: auto;
 }
 
 .input-wrap {
@@ -66,6 +73,7 @@ export default {
 
 label {
   cursor: pointer;
+  color: #333;
 }
 
 .radio-button {
@@ -89,7 +97,11 @@ input[type="radio"]:checked+label .radio-button {
   transform: translateY(4px);
 }
 
+.group-head p { margin: 8px 0 0 0; }
+
+
 @media only screen and (max-width: 600px) {
+  .group-head { text-align: center; }
   .group-flex { flex-direction: column; }
   .input-wrap { margin: 16px 4px 0 4px}
 }

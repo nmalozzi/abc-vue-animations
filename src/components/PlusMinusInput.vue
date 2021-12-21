@@ -1,6 +1,9 @@
 <template>
   <div class="plus-minus-input">
-    <h2 v-if="header">{{ header }}</h2>
+    <div class="plus-minus-head">
+      <h2 v-if="header">{{ header }}</h2>
+      <p v-if="smallText">{{ smallText }}</p>
+    </div>
     <div>
       <div class="plus-minus-button minus" v-on:click="mpminus()">
         -
@@ -21,6 +24,10 @@
 export default {
   props: {
     header: {
+      default: undefined,
+      type: String
+    },
+    smallText: {
       default: undefined,
       type: String
     },
@@ -84,6 +91,8 @@ export default {
   justify-content: space-between;
 }
 
+.plus-minus-head p { margin: 8px 0 0 0; }
+
 .plus-minus-input div {
   display: inline-block;
 }
@@ -136,10 +145,11 @@ export default {
 }
 
 @media only screen and (max-width: 600px) {
-  .plus-minus-input {
-    flex-direction: column;
+  .plus-minus-head {
+    margin-bottom: 16px;
+    text-align: center;
   }
-  h2 { margin-bottom: 16px; }
+  .plus-minus-input { flex-direction: column;}
   .plus-minus-input #field { width: 105px; }
 }
 

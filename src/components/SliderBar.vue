@@ -1,18 +1,20 @@
 <template>
-  <div>
-    <div class="slider">
-      <div class="slider-container">
+  <div class="slider-bar-wrapper">
+    <h2>{{ header }}</h2>
+    <p v-if="smallText">{{ smallText }}</p>
+    <div class="slider-bar">
+      <div class="slider-bar-container">
         <div class="ticks">
           <span v-for="n in ticks" :key="n" class="tick"></span>
         </div>
-        <div class="slide-wrap">
+        <div class="slide-bar-wrap">
           <input
               ref="input"
               v-model="currentValue"
               type="range"
               :min="min"
               :max="max"
-              class="slider"
+              class="slider-bar"
               @input="onInput"
           >
         </div>
@@ -40,6 +42,14 @@ export default {
       type: Number,
       required: true
     },
+    header: {
+      type: String,
+      required: true
+    },
+    smallText: {
+      type: String,
+      required: false
+    },
   },
   data(){
     return {
@@ -55,13 +65,13 @@ export default {
 </script>
 
 <style scoped>
-.slider .slider-container {
+.slider-bar .slider-bar-container {
   width: 100%;
   height: 48px;
   margin-top: 16px;
 }
 
-.slider .slider-container .slider {
+.slider-bar .slider-bar-container .slider-bar {
   -webkit-appearance: none;
   appearance: none;
   width: 100%;
@@ -74,11 +84,11 @@ export default {
   padding: 0;
 }
 
-.slider .slider-container .slider:hover {
+.slider-bar .slider-bar-container .slider-bar:hover {
   opacity: 1;
 }
 
-.slider .slider-container .slider::-webkit-slider-thumb {
+.slider-bar .slider-bar-container .slider-bar::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
   width: 22px;
@@ -90,7 +100,7 @@ export default {
   border-color: #a1a1a1;
 }
 
-.slider .slider-container .slider::-moz-range-thumb {
+.slider-bar .slider-bar-container .slider-bar::-moz-range-thumb {
   width: 22px;
   height: 48px;
   background: #000000;
@@ -100,7 +110,7 @@ export default {
   border-color: #a1a1a1;
 }
 
-.slide-wrap {
+.slide-bar-wrap {
   z-index: 2;
   transform: translateY(-39px);
 }
@@ -123,6 +133,12 @@ export default {
 .tick:first-child,
 .tick:last-child {
   height: 48px;
+}
+
+.slider-bar-wrapper p { margin: 8px 0 0 0; }
+
+@media only screen and (max-width: 600px) {
+  .slider-bar-wrapper { text-align: center; }
 }
 
 </style>
